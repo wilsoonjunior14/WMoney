@@ -11,23 +11,21 @@ class Database(context: Context) : SQLiteOpenHelper(context, "WMoney", null, 1) 
             "email varchar(100) not null, " +
             "password varchar(10) not null)"
 
-    public val financesSQL: String = "create table if not exists finances (id integer primary key autoincrement," +
-            "year integer not null," +
-            "month integer not null," +
-            "id_user integer" +
-            ")"
-
     public val expensesSQL: String = "create table if not exists expenses (id integer primary key autoincrement," +
             "value double not null," +
-            "id_finances integer," +
+            "id_user integer references user(id)," +
             "increment boolean not null," +
             "date date not null)"
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        // create database user
+        // create table user
         print("QUERY - CREATE TABLE USER")
         db?.execSQL(this.userSQL)
+
+        // create table expenses
+        print("QUERY - CREATE TABLE Expenses")
+        db?.execSQL(this.expensesSQL)
 
     }
 

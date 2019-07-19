@@ -1,6 +1,7 @@
 package models
 import android.content.ContentValues
 import android.content.Context
+import android.provider.ContactsContract
 import android.widget.Toast
 import utils.Database
 import utils.DatabaseOperations
@@ -32,8 +33,8 @@ class User(context: Context, id: Int, email: String, password: String, name: Str
             var cv = ContentValues()
             var sqlite = Database(this.context).writableDatabase
 
-            cv.put("name", newUser.getEmail())
-            cv.put("email", newUser.getName())
+            cv.put("name", newUser.getName())
+            cv.put("email", newUser.getEmail())
             cv.put("password", newUser.getPassword())
 
             val result = sqlite.insert("user", null, cv)
@@ -63,14 +64,37 @@ class User(context: Context, id: Int, email: String, password: String, name: Str
     }
 
     public fun valid() : String{
-        if (getEmail().equals("") || getEmail().length > 100) return "Email inválido! Máximo de 100 caracteres são permitidos"
+        if (getEmail().equals("") || getEmail().length > 100 || !getEmail().toString().contains("@")) return "Email inválido! Máximo de 100 caracteres são permitidos"
         if (getName().equals("") || getName().length > 255) return "Nome inválido! Máximo de 255 caracteres são permitidos"
         if (getPassword().equals("") || getPassword().length > 10) return "Senha inválida! Máximo de 10 caracteres são permitidos"
         return ""
     }
 
-    public fun findLogin(email: String, password: String){
+    public fun findLogin(email: String, password: String) : User?{
+        var user = User(context, 0, "", "", "")
+        try{
 
+
+            var sqlite = Database(context).readableDatabase
+
+            var cursor = sqlite.rawQuery("select id, name, email from user where email = '"+email+"' and password = '"+password+"'  ",  null)
+
+            if (cursor.count > 0){
+                cursor.moveToFirst()
+                user = User(context, cursor.getInt(0), cursor.getString(2), "", cursor.getString(3))
+            }else{
+                Toast.makeText(context, "Nenhum usuário encontrado", Toast.LENGTH_LONG).show()
+                return null
+            }
+
+            return user
+        }catch(e: Exception){
+            e.printStackTrace()
+            Toast.makeText(context, "Erro ao buscar usuários", Toast.LENGTH_LONG).show()
+            return null
+        }
+
+        return null
     }
 
 }

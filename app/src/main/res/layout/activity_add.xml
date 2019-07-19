@@ -40,12 +40,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:hint="Senha"
+            android:inputType="textPassword"
             android:layout_marginBottom="10dp"
             android:id="@+id/password"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:inputType="textPassword"
             android:hint="Confirmar Senha"
             android:layout_marginBottom="10dp"
             android:id="@+id/confpassword"/>
