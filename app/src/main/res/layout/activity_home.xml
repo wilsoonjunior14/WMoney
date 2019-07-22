@@ -7,17 +7,6 @@
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary">
-
-
-
-    </android.support.v7.widget.Toolbar>
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,11 +17,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:id="@+id/name"
+                android:text="Name: "/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:id="@+id/email"
+                android:text="Email: "/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginBottom="10dp">
 
-            <Button
+            <com.jjoe64.graphview.GraphView
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="250dp"
+                android:id="@+id/graphView"/>
 
         </LinearLayout>
 
@@ -46,11 +58,14 @@
                 android:gravity="center">
                 <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adicionar Despesa"/>
+                    android:text="Adicionar"
+                    android:id="@+id/btnAdd"
+                    android:drawableLeft="@android:drawable/ic_input_add"/>
 
                 <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adicionar Despesa"/>
+                    android:text="Consultar"
+                    android:drawableLeft="@android:drawable/ic_menu_search"/>
             </TableRow>
 
         </TableLayout>

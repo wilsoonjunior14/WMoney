@@ -26,6 +26,10 @@ class User(context: Context, id: Int, email: String, password: String, name: Str
         return this.name
     }
 
+    public fun getId() : Int{
+        return this.id
+    }
+
     override fun save(objeto: Object): Boolean {
 
         try {
@@ -74,14 +78,13 @@ class User(context: Context, id: Int, email: String, password: String, name: Str
         var user = User(context, 0, "", "", "")
         try{
 
-
             var sqlite = Database(context).readableDatabase
 
-            var cursor = sqlite.rawQuery("select id, name, email from user where email = '"+email+"' and password = '"+password+"'  ",  null)
+            var cursor = sqlite.rawQuery("select id, name, email from user where email = '"+email+"'",  null)
 
             if (cursor.count > 0){
                 cursor.moveToFirst()
-                user = User(context, cursor.getInt(0), cursor.getString(2), "", cursor.getString(3))
+                user = User(context, cursor.getInt(0), cursor.getString(2), "", cursor.getString(1))
             }else{
                 Toast.makeText(context, "Nenhum usuário encontrado", Toast.LENGTH_LONG).show()
                 return null

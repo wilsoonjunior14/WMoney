@@ -8,8 +8,17 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import models.User
 import utils.Database
+import wmoney.wilson.com.wmoney.utils.Preferences
 
 class MainActivity : AppCompatActivity() {
+
+    override fun onStart(){
+        super.onStart()
+        var user = Preferences().getLogin(applicationContext)
+        if (!user.getName().equals("")){
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 var user = User(this, 0, "", "", "").findLogin(email, password)
                 if (user != null){
                     System.out.println("Login realizado com sucesso!")
+                    Preferences().save_login(applicationContext, user)
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
 
