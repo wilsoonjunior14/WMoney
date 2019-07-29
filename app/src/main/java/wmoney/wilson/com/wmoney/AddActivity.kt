@@ -20,9 +20,7 @@ class AddActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, result, Toast.LENGTH_LONG).show()
             }else{
                 val save = newUser.save(newUser as Object)
-                if (save){
-                    init()
-                }
+
             }
         }
 

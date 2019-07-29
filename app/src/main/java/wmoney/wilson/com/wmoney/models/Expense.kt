@@ -36,7 +36,9 @@ class Expense(context: Context, id: Int, date: String, value: Double, id_user: I
         return this.increment
     }
 
-    override fun save(objeto: Object): Boolean {
+    override fun save(objeto: Object): HashMap<String, Object> {
+        var hashResult: HashMap<String, Object> = HashMap<String, Object>()
+
         try {
             var expense = objeto as Expense
             var cv = ContentValues()
@@ -49,20 +51,20 @@ class Expense(context: Context, id: Int, date: String, value: Double, id_user: I
 
             val result = sqlite.insert("expenses", null, cv)
             if (result.toInt() == -1){
-                Toast.makeText(context, "Não foi possível salvar a despesa!", Toast.LENGTH_LONG).show()
-                return false
+                hashResult.put("status", false as Object)
+                hashResult.put("mensagem", "Não foi possível salvar a despesa!" as Object)
             }else{
-                Toast.makeText(context, "Despesa salva com sucesso", Toast.LENGTH_LONG).show()
-                return true
+                hashResult.put("status", true as Object)
+                hashResult.put("mensagem", "Despesa salva com sucesso!" as Object)
             }
 
         }catch (e: Exception){
             e.printStackTrace()
-            Toast.makeText(context, "Erro ao salvar despesa!", Toast.LENGTH_LONG).show()
-            return false
+            hashResult.put("status", false as Object)
+            hashResult.put("mensagem", "Erro ao salvar despesa!" as Object)
         }
 
-        return false
+        return hashResult
     }
 
     override fun delete(context: Context, objeto: Object): Boolean {

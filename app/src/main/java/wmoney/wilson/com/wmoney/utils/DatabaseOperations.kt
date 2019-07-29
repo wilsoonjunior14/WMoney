@@ -4,7 +4,7 @@ import android.content.Context
 
 interface DatabaseOperations {
 
-    fun save(objeto: Object) : Boolean
+    fun save(objeto: Object) : HashMap<String, Object>
 
     fun delete(context: Context, objeto: Object) : Boolean
 

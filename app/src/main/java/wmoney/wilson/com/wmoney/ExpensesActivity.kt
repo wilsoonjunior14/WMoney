@@ -35,10 +35,7 @@ class ExpensesActivity : AppCompatActivity() {
             }else{
 
                 var returns = expense.save(expense as Object)
-                if (returns){
-                    this.finish()
-                    startActivity(Intent(this, HomeActivity::class.java))
-                }
+
 
             }
 

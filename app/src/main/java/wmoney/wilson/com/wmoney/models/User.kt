@@ -30,7 +30,9 @@ class User(context: Context, id: Int, email: String, password: String, name: Str
         return this.id
     }
 
-    override fun save(objeto: Object): Boolean {
+    override fun save(objeto: Object): HashMap<String, Object> {
+
+        var hashResult: HashMap<String, Object> = HashMap<String, Object>()
 
         try {
             var newUser = objeto as User
@@ -43,20 +45,20 @@ class User(context: Context, id: Int, email: String, password: String, name: Str
 
             val result = sqlite.insert("user", null, cv)
             if (result.toInt() == -1){
-                Toast.makeText(context, "Não foi possível salvar o usuário!", Toast.LENGTH_LONG).show()
-                return false
+                hashResult.put("status", false as Object)
+                hashResult.put("mensagem", "Não foi possível salvar o usuário!" as Object)
             }else{
-                Toast.makeText(context, "Usuário salvo com sucesso", Toast.LENGTH_LONG).show()
-                return true
+                hashResult.put("status", true as Object)
+                hashResult.put("mensagem", "Usuário salvo com sucesso!" as Object)
             }
 
         }catch (e: Exception){
             e.printStackTrace()
-            Toast.makeText(context, "Erro ao salvar usuário!", Toast.LENGTH_LONG).show()
-            return false
+            hashResult.put("status", false as Object)
+            hashResult.put("mensagem", "Erro ao salvar usuário!" as Object)
         }
 
-        return false
+        return hashResult
     }
 
     override fun delete(context: Context, objeto: Object): Boolean {

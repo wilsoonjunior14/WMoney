@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class Database(context: Context) : SQLiteOpenHelper(context, "WMoney", null, 1) {
 
+    public var name_database:String = "WMoney"
+
     public val userSQL: String = "create table if not exists user (id integer primary key autoincrement," +
             "name varchar(255) not null," +
             "email varchar(100) not null, " +
